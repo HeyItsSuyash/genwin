@@ -25,8 +25,26 @@ const basierFallback = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'GenWin - Information Trust Evaluation',
-  description: 'AI-powered platform that evaluates the trustworthiness of information.',
+  title: 'GenWin | High-Performance Info Integrity Engine',
+  description: 'Evaluate the credibility of information, claims, and data at extreme speed. GenWin uses AI-driven signals to provide structural clarity and trust scores for professionals.',
+  keywords: ['trust engine', 'fact checking', 'information integrity', 'AI analysis', 'data credibility'],
+  authors: [{ name: 'GenWin Network' }],
+  viewport: 'width=device-width, initial-scale=1',
+  openGraph: {
+    title: 'GenWin | A New Standard for Trust',
+    description: 'Autonomous evaluation of information, products, and claims.',
+    url: 'https://genwin.ai',
+    siteName: 'GenWin',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
@@ -39,9 +57,6 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${inconsolata.variable} ${basierFallback.variable} h-full antialiased`}
     >
-      <head>
-        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE" async defer></script>
-      </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           {children}

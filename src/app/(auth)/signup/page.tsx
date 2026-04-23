@@ -23,20 +23,6 @@ export default function SignupPage() {
     setError('');
     
     try {
-      const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
-      const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
-
-      const verifyRes = await fetch('/api/recaptcha/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, action: 'SIGNUP' }),
-      });
-      
-      const verifyData = await verifyRes.json();
-      if (!verifyData.success) {
-        throw new Error(verifyData.error || 'Verification failed');
-      }
-
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(user, { displayName: name });
       router.push('/dashboard');
@@ -52,20 +38,6 @@ export default function SignupPage() {
     setError('');
     const provider = new GoogleAuthProvider();
     try {
-      const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
-      const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
-
-      const verifyRes = await fetch('/api/recaptcha/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, action: 'SIGNUP' }),
-      });
-      
-      const verifyData = await verifyRes.json();
-      if (!verifyData.success) {
-        throw new Error(verifyData.error || 'Verification failed');
-      }
-
       await signInWithPopup(auth, provider);
       router.push('/dashboard');
     } catch (err: any) {

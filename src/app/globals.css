@@ -39,6 +39,10 @@
   --spacing-44: 44px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--color-pure-black);
   color: var(--color-pure-white);

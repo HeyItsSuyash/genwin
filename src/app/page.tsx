@@ -2,7 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
+import { Navbar } from '@/components/ui/Navbar';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
 import { 
   ArrowRight, 
@@ -25,25 +27,7 @@ import { motion } from 'framer-motion';
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-pure-black text-pure-white selection:bg-neon-volt selection:text-pure-black overflow-x-hidden font-sans">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-pure-black border-b border-charcoal/80">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded-[2px] shadow-[0_0_15px_rgba(250,255,105,0.15)]">
-              <span className="text-pure-black font-black text-xl">G</span>
-            </div>
-            <span className="text-xl font-black tracking-[-0.04em] uppercase">GenWin</span>
-          </div>
-          <div className="flex items-center gap-8">
-            <Link href="/login" className="text-[11.2px] font-black tracking-[1.4px] uppercase text-silver hover:text-neon-volt transition-colors">
-              Session Login
-            </Link>
-            <Link href="/signup">
-              <Button variant="neon" size="sm">Get Started</Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="container mx-auto px-6 pt-48 pb-32">
@@ -53,6 +37,9 @@ export default function LandingPage() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center text-center"
         >
+          <div className="mb-10 relative w-24 h-24">
+            <Image src="/logo-volt.png" alt="GenWin Logo" fill className="object-contain drop-shadow-[0_0_20px_rgba(250,255,105,0.3)]" />
+          </div>
           <h1 className="font-sans font-black text-[64px] md:text-[96px] leading-[0.9] tracking-[-0.05em] uppercase mb-10 max-w-6xl">
             A NEW <span className="text-neon-volt">STANDARD</span> <br />FOR TRUST.
           </h1>
@@ -177,11 +164,17 @@ export default function LandingPage() {
       {/* Problem Section */}
       <section className="container mx-auto px-6 py-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="max-w-2xl">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
             <span className="text-neon-volt text-[12px] font-black tracking-[3px] uppercase mb-6 block">Critical Threshold</span>
             <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-[0.95] tracking-[-0.04em] uppercase mb-10">
               Information is abundant. <br />
-              <span className="text-charcoal">Trust is not.</span>
+              <span className="text-charcoal-80">Trust is not.</span>
             </h2>
             <div className="space-y-8 text-silver text-xl leading-relaxed">
               <p>
@@ -192,8 +185,14 @@ export default function LandingPage() {
                 <span className="text-pure-white font-bold uppercase tracking-tight">It’s uncertainty at scale.</span>
               </p>
             </div>
-          </div>
-          <div className="relative">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
              <Card elevated className="bg-near-black/50 border-charcoal/80 p-8 h-96 relative overflow-hidden flex flex-col justify-between">
                 <div className="space-y-3 opacity-30 blur-[1px]">
                    {Array.from({ length: 6 }).map((_, i) => (
@@ -296,14 +295,17 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-charcoal/40 border border-charcoal/40">
              {[
-               { name: 'GenWin App', status: 'Available', desc: 'Real-time credibility evaluation engine.' },
-               { name: 'GenWin Food', status: 'Planned', desc: 'Ingredient transparency and sourcing integrity.' },
-               { name: 'GenWin Shop', status: 'Planned', desc: 'Product authenticity and review verification.' },
-               { name: 'GenWin Verify', status: 'Future', desc: 'Scalable API layer for external ecosystems.' },
+               { name: 'GenWin App', status: 'Available', desc: 'Real-time credibility evaluation engine.', logo: '/logo-volt.png' },
+               { name: 'GenWin Food', status: 'Planned', desc: 'Ingredient transparency and sourcing integrity.', logo: '/logo-blue.png' },
+               { name: 'GenWin Shop', status: 'Planned', desc: 'Product authenticity and review verification.', logo: '/logo-volt.png' },
+               { name: 'GenWin Verify', status: 'Future', desc: 'Scalable API layer for external ecosystems.', logo: '/logo-blue.png' },
              ].map((cap) => (
-               <div key={cap.name} className="bg-pure-black p-10 group hover:bg-near-black transition-colors min-h-[300px] flex flex-col justify-between">
+               <div key={cap.name} className="bg-pure-black p-10 group hover:bg-near-black transition-colors min-h-[300px] flex flex-col justify-between border-r border-charcoal/40 last:border-r-0">
                   <div className="flex justify-between items-start">
-                     <h4 className="text-xl font-black uppercase tracking-tight max-w-[100px] leading-none">{cap.name}</h4>
+                     <div className="flex flex-col gap-4">
+                        <Image src={cap.logo} alt={cap.name} width={40} height={40} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                        <h4 className="text-xl font-black uppercase tracking-tight max-w-[100px] leading-none">{cap.name}</h4>
+                     </div>
                      <span className={`text-[9px] font-black uppercase tracking-[2px] px-2 py-0.5 rounded-[2px] ${cap.status === 'Available' ? 'bg-neon-volt text-pure-black shadow-[0_0_10px_rgba(250,255,105,0.3)]' : 'bg-charcoal/20 text-silver border border-charcoal/40'}`}>
                        {cap.status}
                      </span>

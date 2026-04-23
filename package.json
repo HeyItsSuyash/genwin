@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@google-cloud/recaptcha-enterprise": "^6.4.0",
     "bcrypt": "^6.0.0",
     "firebase": "^12.12.1",
     "firebase-admin": "^13.8.0",
