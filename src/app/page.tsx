@@ -1,618 +1,450 @@
 'use client';
 
 import React from 'react';
-import Link from 'react-native-web'; // Wait, I should use next/link instead for consistency
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
 import { 
-  ShieldCheck, 
-  Zap, 
-  BarChart, 
   ArrowRight, 
   Search, 
-  Database, 
   Activity, 
-  FileText, 
-  Users, 
-  Briefcase, 
-  Globe, 
+  ShieldAlert,
+  Terminal,
+  Zap,
+  CheckCircle2,
   Lock,
-  ChevronDown,
-  CircleCheck,
-  AlertCircle
+  Globe,
+  Database,
+  Briefcase,
+  Users,
+  FileSearch,
+  ExternalLink
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-pure-black text-pure-white selection:bg-neon-volt selection:text-pure-black overflow-x-hidden">
+    <main className="min-h-screen bg-pure-black text-pure-white selection:bg-neon-volt selection:text-pure-black overflow-x-hidden font-sans">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-pure-black/80 backdrop-blur-md border-b border-deep-charcoal">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-pure-black border-b border-charcoal/80">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded-[2px] shadow-[0_0_15px_rgba(250,255,105,0.15)]">
               <span className="text-pure-black font-black text-xl">G</span>
             </div>
-            <span className="text-xl font-bold tracking-tight">GenWin</span>
+            <span className="text-xl font-black tracking-[-0.04em] uppercase">GenWin</span>
           </div>
-          <div className="flex items-center gap-6">
-            <NextLink href="/login" className="text-sm font-semibold hover:text-neon-volt transition-colors tracking-[1.4px] uppercase">
-              Sign In
-            </NextLink>
-            <NextLink href="/signup">
-              <Button variant="neon" size="sm">GET STARTED</Button>
-            </NextLink>
+          <div className="flex items-center gap-8">
+            <Link href="/login" className="text-[11.2px] font-black tracking-[1.4px] uppercase text-silver hover:text-neon-volt transition-colors">
+              Session Login
+            </Link>
+            <Link href="/signup">
+              <Button variant="neon" size="sm">Get Started</Button>
+            </Link>
           </div>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="container mx-auto px-6 pt-40 pb-32 md:pt-56 md:pb-48">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-start text-left"
-          >
-            <h1 className="font-sans font-black text-6xl md:text-[96px] leading-[0.95] tracking-tight mb-8">
-              A NEW <br /> 
-              <span className="text-neon-volt">STANDARD</span> <br /> 
-              FOR TRUST.
-            </h1>
-            <p className="text-silver text-xl md:text-2xl max-w-xl mb-12 font-medium leading-relaxed">
-              GenWin evaluates the credibility of information, products, and claims—so you can make decisions with clarity, not assumption.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-              <NextLink href="/signup">
-                <Button variant="forest" size="lg" className="w-full sm:w-auto px-10 group">
-                  GET STARTED <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </NextLink>
-              <NextLink href="#capabilities">
-                <Button variant="ghost" size="lg" className="w-full sm:w-auto px-10">
-                  EXPLORE THE PLATFORM
-                </Button>
-              </NextLink>
-            </div>
-          </motion.div>
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 pt-48 pb-32">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center text-center"
+        >
+          <h1 className="font-sans font-black text-[64px] md:text-[96px] leading-[0.9] tracking-[-0.05em] uppercase mb-10 max-w-6xl">
+            A NEW <span className="text-neon-volt">STANDARD</span> <br />FOR TRUST.
+          </h1>
+          <p className="text-silver text-xl md:text-2xl max-w-2xl mb-12 font-medium leading-relaxed">
+            GenWin evaluates the credibility of information, products, and claims—so you can make decisions with clarity, not assumption.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Link href="/signup">
+              <Button variant="forest" size="lg" className="px-12 group">
+                Establish Access <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link href="/#analysis">
+              <Button variant="ghost" size="lg" className="px-12">
+                Explore Platform
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
 
-          {/* Minimal Dashboard Preview */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <Card elevated className="bg-near-black p-8 border-charcoal/80 overflow-hidden">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
-                </div>
-                <div className="px-3 py-1 bg-pure-black border border-charcoal/80 rounded text-[10px] uppercase font-bold tracking-widest text-silver">
-                  Live Assessment
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-10 items-center">
-                {/* Circular Meter */}
-                <div className="relative w-40 h-40 flex items-center justify-center">
-                  <svg className="w-full h-full -rotate-90">
-                    <circle 
-                      cx="80" cy="80" r="70" 
-                      fill="transparent" 
-                      stroke="#141414" 
-                      strokeWidth="12" 
-                    />
-                    <motion.circle 
-                      cx="80" cy="80" r="70" 
-                      fill="transparent" 
-                      stroke="#faff69" 
-                      strokeWidth="12" 
-                      strokeDasharray="440"
-                      initial={{ strokeDashoffset: 440 }}
-                      whileInView={{ strokeDashoffset: 440 - (440 * 62) / 100 }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      viewport={{ once: true }}
-                    />
-                  </svg>
-                  <div className="absolute flex flex-col items-center">
-                    <span className="text-4xl font-black">62</span>
-                    <span className="text-[10px] font-bold text-silver uppercase">Trust Score</span>
-                  </div>
-                </div>
-
-                <div className="flex-1 space-y-4 w-full">
-                  {[
-                    { label: 'Source', value: 'Verified', color: 'text-green-500' },
-                    { label: 'Evidence', value: 'Partial', color: 'text-yellow-500' },
-                    { label: 'Context', value: 'Incomplete', color: 'text-red-500' },
-                  ].map((item, i) => (
-                    <motion.div 
-                      key={item.label}
-                      initial={{ opacity: 0, x: 10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + (i * 0.1) }}
-                      viewport={{ once: true }}
-                      className="bg-pure-black border border-charcoal/80 rounded p-4 flex items-center justify-between"
-                    >
-                      <span className="text-xs font-bold uppercase tracking-widest text-silver">{item.label}</span>
-                      <span className={`text-xs font-bold uppercase ${item.color}`}>{item.value}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Subtle animated line */}
-              <div className="mt-10 flex items-center justify-between px-6 relative">
-                 <div className="absolute top-1/2 left-0 right-0 h-px bg-charcoal/30 -z-10" />
-                 <motion.div 
-                   className="absolute top-1/2 left-0 h-px bg-neon-volt -z-10 shadow-[0_0_10px_#faff69]"
-                   initial={{ width: 0 }}
-                   whileInView={{ width: '100%' }}
-                   transition={{ duration: 2, ease: "linear", repeat: Infinity }}
-                 />
-                 <div className="flex flex-col items-center gap-2">
-                   <div className="w-8 h-8 rounded bg-near-black border border-charcoal flex items-center justify-center">
-                     <Search size={14} className="text-silver" />
+        {/* Dashboard Preview Overlay */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="mt-24 max-w-6xl mx-auto relative"
+        >
+          <div className="absolute inset-0 bg-neon-volt/5 blur-[100px] -z-10" />
+          <Card elevated className="bg-near-black border-charcoal/80 p-0 overflow-hidden">
+             <div className="bg-pure-black border-b border-charcoal/80 p-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                   <div className="flex gap-1.5 px-2">
+                     <div className="w-2.5 h-2.5 rounded-full bg-charcoal/50" />
+                     <div className="w-2.5 h-2.5 rounded-full bg-charcoal/50" />
+                     <div className="w-2.5 h-2.5 rounded-full bg-charcoal/50" />
                    </div>
-                   <span className="text-[10px] uppercase font-bold text-silver">Input</span>
-                 </div>
-                 <div className="flex flex-col items-center gap-2">
-                   <div className="w-8 h-8 rounded bg-near-black border border-charcoal flex items-center justify-center">
-                     <Activity size={14} className="text-neon-volt" />
+                   <span className="text-[10px] font-black uppercase tracking-[2px] text-silver border-l border-charcoal/80 pl-4">integrity_engine_v1.0.4</span>
+                </div>
+                <div className="flex items-center gap-4">
+                   <span className="text-[10px] font-black uppercase tracking-[2px] text-neon-volt animate-pulse">● System Online</span>
+                </div>
+             </div>
+             <div className="p-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div className="lg:col-span-5 flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-r border-charcoal/80 pb-8 lg:pb-0 lg:pr-12">
+                   <div className="relative w-48 h-48 flex items-center justify-center">
+                      <svg className="w-full h-full -rotate-90">
+                        <circle cx="96" cy="96" r="88" fill="transparent" stroke="#161616" strokeWidth="16" />
+                        <motion.circle 
+                          cx="96" cy="96" r="88" 
+                          fill="transparent" 
+                          stroke="#faff69" 
+                          strokeWidth="16" 
+                          strokeDasharray="552.9"
+                          initial={{ strokeDashoffset: 552.9 }}
+                          animate={{ strokeDashoffset: 552.9 - (552.9 * 62) / 100 }}
+                          transition={{ duration: 2, ease: "circOut" }}
+                        />
+                      </svg>
+                      <div className="absolute flex flex-col items-center">
+                        <span className="text-6xl font-black tracking-tighter">62</span>
+                        <span className="text-[10px] font-black tracking-[2.5px] uppercase text-silver">Trust Score</span>
+                      </div>
                    </div>
-                   <span className="text-[10px] uppercase font-bold text-silver">Analysis</span>
-                 </div>
-                 <div className="flex flex-col items-center gap-2">
-                   <div className="w-8 h-8 rounded bg-neon-volt border border-neon-volt flex items-center justify-center">
-                     <Zap size={14} className="text-pure-black" />
+                </div>
+                <div className="lg:col-span-7 space-y-6 py-4">
+                   <div className="flex items-center justify-between">
+                      <span className="text-[11.2px] font-black tracking-[1.4px] uppercase text-silver">Assessment:</span>
+                      <span className="text-[11.2px] font-black tracking-[1.4px] uppercase text-pale-yellow border border-border-olive px-2 py-0.5 rounded-[2px] bg-olive-dark/50">INCONCLUSIVE</span>
                    </div>
-                   <span className="text-[10px] uppercase font-bold text-neon-volt">Clarity</span>
-                 </div>
-              </div>
-            </Card>
-          </motion.div>
-        </div>
+                   <div className="space-y-4">
+                      {[
+                        { label: 'Source Credibility', val: 40, status: 'Limited' },
+                        { label: 'Evidence Strength', val: 68, status: 'Partial' },
+                        { label: 'Context Integrity', val: 32, status: 'Incomplete' },
+                      ].map((item) => (
+                        <div key={item.label} className="space-y-2">
+                           <div className="flex justify-between text-[10px] font-black uppercase tracking-[1.5px]">
+                              <span className="text-silver">{item.label}</span>
+                              <span className="text-pure-white">{item.status}</span>
+                           </div>
+                           <div className="h-1.5 w-full bg-pure-black border border-charcoal/50 rounded-none overflow-hidden">
+                              <motion.div 
+                                initial={{ width: 0 }}
+                                animate={{ width: `${item.val}%` }}
+                                transition={{ duration: 1.5, delay: 0.6 }}
+                                className={`h-full ${item.val < 40 ? 'bg-charcoal' : 'bg-neon-volt'}`}
+                              />
+                           </div>
+                        </div>
+                      ))}
+                   </div>
+                   <div className="pt-4 mt-6 border-t border-charcoal/80">
+                      <p className="text-[11.2px] font-medium text-silver leading-relaxed italic italic">
+                        Every conclusion is accompanied by structured reasoning deconstructed via Engine v1.0.
+                      </p>
+                   </div>
+                </div>
+             </div>
+          </Card>
+        </motion.div>
       </section>
 
-      {/* PROBLEM SECTION */}
-      <section className="bg-near-black/30 border-y border-charcoal/80">
-        <div className="container mx-auto px-6 py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="bg-pure-black border border-charcoal rounded-xl p-8 relative overflow-hidden h-[400px]">
-                {/* Visual Representation of Problem vs Solution */}
-                <div className="grid grid-cols-2 h-full gap-4">
-                  <div className="relative overflow-hidden flex flex-col gap-2">
-                    <p className="text-[10px] font-bold text-silver uppercase mb-2">CHAOS</p>
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <div key={i} className={`h-8 w-full bg-charcoal/20 border border-charcoal/40 rounded flex items-center px-3 blur-[2px]`} style={{ opacity: 1 - (i*0.1) }}>
-                        <div className="h-2 w-1/2 bg-silver/20 rounded" />
-                      </div>
-                    ))}
-                    <div className="absolute inset-0 bg-gradient-to-t from-pure-black to-transparent" />
-                  </div>
-                  <div className="border-l border-charcoal pl-4 flex flex-col gap-3">
-                    <p className="text-[10px] font-bold text-neon-volt uppercase mb-2 tracking-widest">STRUCTURE</p>
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="bg-neon-volt/10 border border-neon-volt/30 rounded p-3"
-                    >
-                      <div className="h-2 w-3/4 bg-neon-volt/60 rounded mb-2" />
-                      <div className="h-1.5 w-1/2 bg-neon-volt/30 rounded" />
-                    </motion.div>
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
-                      className="bg-charcoal/20 border border-charcoal/40 rounded p-3"
-                    >
-                      <div className="h-2 w-1/2 bg-silver/40 rounded mb-2" />
-                      <div className="h-1.5 w-2/3 bg-silver/20 rounded" />
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
-              <h2 className="font-sans font-black text-5xl md:text-6xl mb-8 leading-tight">
-                INFORMATION IS ABUNDANT. <br />
-                <span className="text-neon-volt">TRUST</span> IS NOT.
-              </h2>
-              <div className="space-y-6 text-silver text-lg">
-                <p>
-                  Modern decisions are shaped by fragmented signals—headlines without context, reviews without verification, claims without evidence.
-                </p>
-                <p>
-                  The result isn’t just misinformation. <br />
-                  <span className="text-pure-white font-bold">It’s uncertainty at scale.</span>
-                </p>
-              </div>
-            </div>
+      {/* Performance Stats */}
+      <section className="bg-near-black border-y border-charcoal/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-neon-volt/5 blur-[120px] -z-10" />
+        <div className="container mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-charcoal/80">
+          <div className="flex flex-col items-center text-center px-8 border-charcoal/40 pt-12 md:pt-0">
+            <span className="font-sans font-black text-[72px] md:text-[88px] leading-tight tracking-tighter">99<span className="text-neon-volt">%</span></span>
+            <span className="text-silver text-[12px] font-black tracking-[2px] uppercase">Analysis Accuracy</span>
+          </div>
+          <div className="flex flex-col items-center text-center px-8 pt-12 md:pt-0">
+            <span className="font-sans font-black text-[72px] md:text-[88px] leading-tight tracking-tighter">&lt;2<span className="text-neon-volt">s</span></span>
+            <span className="text-silver text-[12px] font-black tracking-[2px] uppercase">Average Latency</span>
+          </div>
+          <div className="flex flex-col items-center text-center px-8 pt-12 md:pt-0">
+            <span className="font-sans font-black text-[72px] md:text-[88px] leading-tight tracking-tighter">1.4<span className="text-neon-volt">M</span></span>
+            <span className="text-silver text-[12px] font-black tracking-[2px] uppercase">Signals Evaluated</span>
           </div>
         </div>
       </section>
 
-      {/* SOLUTION SECTION */}
-      <section className="container mx-auto px-6 py-32">
-        <div className="text-center mb-24 max-w-3xl mx-auto">
-          <p className="text-neon-volt text-sm font-bold tracking-[2px] uppercase mb-4">The Solution</p>
-          <h2 className="font-sans font-black text-5xl md:text-6xl mb-8">CLARITY, ENGINEERED.</h2>
-          <p className="text-silver text-xl">
-            GenWin introduces a structured approach to evaluating trust. Instead of presenting conclusions, it analyzes the fundamentals.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="space-y-8">
-            {[
-              { title: 'Source Credibility', desc: 'Detailed deconstruction of implicit and explicit source reputation.' },
-              { title: 'Supporting Evidence', desc: 'Verification against known data points and verifiable facts.' },
-              { title: 'Conflicting Reports', desc: 'Detection of major contradictions and opposing evidence.' },
-              { title: 'Context Integrity', desc: 'Identification of missing context that alters interpretation.' },
-            ].map((item, i) => (
-              <motion.div 
-                key={item.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.2 }}
-                viewport={{ once: true }}
-                className="flex gap-6 group"
-              >
-                <div className="text-neon-volt font-mono text-xl pt-1">0{i+1}</div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2 group-hover:text-neon-volt transition-colors">{item.title}</h3>
-                  <p className="text-silver leading-relaxed">{item.desc}</p>
+      {/* Problem Section */}
+      <section className="container mx-auto px-6 py-40">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="max-w-2xl">
+            <span className="text-neon-volt text-[12px] font-black tracking-[3px] uppercase mb-6 block">Critical Threshold</span>
+            <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-[0.95] tracking-[-0.04em] uppercase mb-10">
+              Information is abundant. <br />
+              <span className="text-charcoal">Trust is not.</span>
+            </h2>
+            <div className="space-y-8 text-silver text-xl leading-relaxed">
+              <p>
+                Modern decisions are shaped by fragmented signals—headlines without context, reviews without verification, claims without evidence.
+              </p>
+              <p>
+                The result isn’t just misinformation. <br />
+                <span className="text-pure-white font-bold uppercase tracking-tight">It’s uncertainty at scale.</span>
+              </p>
+            </div>
+          </div>
+          <div className="relative">
+             <Card elevated className="bg-near-black/50 border-charcoal/80 p-8 h-96 relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-3 opacity-30 blur-[1px]">
+                   {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="h-6 w-full bg-charcoal/20 border border-charcoal/40 rounded-[2px]" />
+                   ))}
                 </div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                   <div className="w-16 h-16 bg-pure-black border-2 border-neon-volt rounded-full flex items-center justify-center shadow-[0_0_30px_#faff69]">
+                      <ShieldAlert className="text-neon-volt" size={24} />
+                   </div>
+                </div>
+                <div className="self-end w-2/3 space-y-3">
+                   <div className="h-4 w-full bg-neon-volt/20 border border-neon-volt/40 rounded-[2px]" />
+                   <div className="h-4 w-1/2 bg-neon-volt/40 border border-neon-volt rounded-[2px]" />
+                </div>
+                <div className="absolute bottom-4 left-4">
+                   <span className="text-[10px] font-black uppercase tracking-[2px] text-silver">System Failure Analysis</span>
+                </div>
+             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Solution Section */}
+      <section className="bg-near-black border-y border-charcoal/80 py-40">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mb-24">
+            <span className="text-neon-volt text-[12px] font-black tracking-[3px] uppercase mb-6 block">Engine Methodology</span>
+            <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-[0.95] tracking-[-0.04em] uppercase mb-10">
+              CLARITY, <br />ENGINEERED.
+            </h2>
+            <p className="text-silver text-2xl leading-relaxed">
+              GenWin introduces a structured approach to evaluating trust. Instead of presenting conclusions, it analyzes the fundamental inputs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: 'Source Credibility', desc: 'Reputation analysis via cross-referenced historical data.', icon: <Users /> },
+              { title: 'Evidence Strength', desc: 'Verification against known data points and verifiable facts.', icon: <Database /> },
+              { title: 'Conflicting Signals', desc: 'Detection of major contradictions and opposing evidence.', icon: <Activity /> },
+              { title: 'Context Integrity', desc: 'Identification of missing context that alters interpretation.', icon: <FileSearch /> },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                whileHover={{ backgroundColor: '#161600', borderColor: '#4f5100' }}
+                className="bg-pure-black border border-charcoal/80 p-8 flex flex-col justify-between h-80 group transition-all"
+              >
+                 <div className="text-charcoal group-hover:text-neon-volt transition-colors">
+                    {item.icon}
+                 </div>
+                 <div>
+                    <h3 className="text-xl font-bold uppercase mb-4 tracking-tighter">{item.title}</h3>
+                    <p className="text-sm text-silver leading-relaxed font-medium">{item.desc}</p>
+                 </div>
               </motion.div>
             ))}
           </div>
-
-          <div className="relative h-[400px]">
-            {/* Layered Cards Animation */}
-            <AnimatePresence mode="wait">
-              <div className="relative w-full h-full">
-                {[
-                  { label: "Source", offset: 0, color: "bg-near-black" },
-                  { label: "Evidence", offset: 40, color: "bg-deep-charcoal" },
-                  { label: "Contradictions", offset: 80, color: "bg-charcoal" },
-                  { label: "Context", offset: 120, color: "bg-near-black border-neon-volt" },
-                ].map((card, i) => (
-                  <motion.div
-                    key={card.label}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: card.offset }}
-                    transition={{ delay: i * 0.3, duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className={`absolute inset-x-0 mx-auto w-4/5 h-48 rounded-xl border border-charcoal p-6 shadow-2xl flex flex-col justify-end ${card.color}`}
-                    style={{ zIndex: i }}
-                  >
-                    <p className="text-[10px] font-black uppercase tracking-widest text-silver mb-1">Layer 0{i+1}</p>
-                    <h4 className="text-xl font-bold">{card.label}</h4>
-                  </motion.div>
-                ))}
-              </div>
-            </AnimatePresence>
-          </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="bg-near-black border-y border-charcoal py-32">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-24">
-             <h2 className="font-sans font-black text-5xl md:text-6xl mb-8 uppercase tracking-tight">A SIMPLE INPUT. <br />A <span className="text-neon-volt">RIGOROUS</span> EVALUATION.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto mb-20">
-            {[
-              { step: '01', title: 'Input', desc: 'Provide any claim, article, or product description for verification.' },
-              { step: '02', title: 'Analysis', desc: 'GenWin deconstructs and cross-references the information against historical data.' },
-              { step: '03', title: 'Output', desc: 'A clear trust score, supported by transparent and structured reasoning.' },
-            ].map((item, i) => (
-              <Card key={item.step} className="bg-pure-black border-charcoal/80 flex flex-col items-center text-center p-8">
-                <span className="text-neon-volt font-black text-4xl mb-6">{item.step}</span>
-                <h3 className="text-xl font-bold mb-4">{item.title}</h3>
-                <p className="text-silver text-sm leading-relaxed">{item.desc}</p>
-              </Card>
-            ))}
-          </div>
-
-          {/* Pipeline Visualization */}
-          <div className="relative max-w-4xl mx-auto h-32 flex items-center justify-between">
-            <div className="absolute inset-x-0 top-1/2 h-px bg-charcoal -z-10" />
-            <motion.div 
-               className="absolute top-1/2 left-0 h-px bg-neon-volt -z-10"
-               initial={{ width: 0 }}
-               whileInView={{ width: '100%' }}
-               transition={{ duration: 4, repeat: Infinity }}
-            />
-            {[
-              { label: 'Input', icon: <Search size={20} /> },
-              { label: 'Parsing', icon: <FileText size={20} /> },
-              { label: 'Cross-verification', icon: <Database size={20} /> },
-              { label: 'Scoring', icon: <BarChart size={20} /> },
-              { label: 'Output', icon: <Zap size={20} /> },
-            ].map((node, i) => (
-              <div key={node.label} className="flex flex-col items-center gap-3">
-                 <div className="w-12 h-12 rounded-full bg-near-black border border-charcoal flex items-center justify-center text-neon-volt">
-                   {node.icon}
-                 </div>
-                 <span className="hidden sm:block text-[10px] font-bold uppercase tracking-widest text-silver text-center max-w-[80px]">
-                   {node.label}
-                 </span>
-              </div>
-            ))}
-          </div>
+      {/* Process Section */}
+      <section id="analysis" className="container mx-auto px-6 py-40">
+        <div className="text-center mb-24">
+          <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-tight uppercase tracking-tight">
+            A SIMPLE <span className="text-charcoal">INPUT.</span> <br />
+            A <span className="text-neon-volt">RIGOROUS</span> EVALUATION.
+          </h2>
         </div>
-      </section>
 
-      {/* OUTPUT EXPERIENCE */}
-      <section className="container mx-auto px-6 py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div>
-            <h2 className="font-sans font-black text-5xl md:text-6xl mb-8 leading-tight">DESIGNED FOR <span className="text-neon-volt">UNDERSTANDING</span>, NOT JUST ANSWERS.</h2>
-            <p className="text-silver text-xl mb-12">
-              The GenWin output engine provides a deep-dive assessment that explains the "why" behind every score. Every conclusion is accompanied by its reasoning.
-            </p>
-          </div>
-
-          <Card elevated className="bg-near-black border-neon-volt overflow-hidden">
-             <div className="p-8 border-b border-charcoal/80 bg-near-black flex items-center justify-between">
-                <div>
-                  <h4 className="font-bold text-xl mb-1">Assessment Engine</h4>
-                  <p className="text-[10px] uppercase font-bold text-silver tracking-widest italic">Result: Inconclusive</p>
-                </div>
-                <div className="text-right">
-                   <span className="text-3xl font-black text-neon-volt">62<span className="text-sm text-silver">/100</span></span>
-                </div>
-             </div>
-             
-             <div className="p-8 space-y-6">
-                {[
-                  { label: "Source Credibility", value: 40, status: "Limited" },
-                  { label: "Supporting Evidence", value: 65, status: "Partial" },
-                  { label: "Conflicting Reports", value: 75, status: "Present" },
-                  { label: "Context", value: 30, status: "Incomplete" },
-                ].map((item) => (
-                  <div key={item.label} className="space-y-2 group cursor-pointer">
-                    <div className="flex items-center justify-between">
-                       <span className="text-xs font-bold uppercase tracking-widest text-silver">{item.label}</span>
-                       <span className="text-xs font-bold text-pure-white">{item.status}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-pure-black border border-charcoal/50 rounded-full overflow-hidden">
-                       <motion.div 
-                         initial={{ width: 0 }}
-                         whileInView={{ width: `${item.value}%` }}
-                         transition={{ duration: 1, delay: 0.5 }}
-                         className={`h-full ${item.value > 60 ? 'bg-neon-volt' : 'bg-charcoal'}`}
-                       />
-                    </div>
-                    <div className="max-h-0 overflow-hidden group-hover:max-h-20 transition-all duration-300">
-                       <p className="text-[10px] text-silver mt-2">Extended analysis: The source has a high variance in truthfulness scores across historical datasets.</p>
-                    </div>
-                  </div>
-                ))}
-             </div>
-             <div className="p-4 bg-pure-black border-t border-charcoal/50 text-center">
-                <p className="text-[10px] font-bold text-neon-volt tracking-[2px] uppercase">Every conclusion is accompanied by its reasoning.</p>
-             </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* PLATFORM CAPABILITIES */}
-      <section id="capabilities" className="bg-near-black/50 border-y border-charcoal py-32">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-24">
-            <h2 className="font-sans font-black text-5xl md:text-6xl mb-8 uppercase">A UNIFIED APPROACH TO TRUST.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
-            {[
-              { title: 'GenWin App', badge: 'Available', desc: 'Evaluate the credibility of information and claims in real-time.', icon: <Activity className="text-neon-volt" /> },
-              { title: 'GenWin Food', badge: 'Planned', desc: 'Assess ingredient transparency, sourcing, and nutritional integrity.', icon: <Zap /> },
-              { title: 'GenWin Shop', badge: 'Planned', desc: 'Verify product authenticity, reviews, and brand claims.', icon: <Search /> },
-              { title: 'GenWin Verify', badge: 'Future', desc: 'A scalable trust layer for platforms and entire ecosystems.', icon: <ShieldCheck /> },
-            ].map((item) => (
-              <Card key={item.title} className="bg-pure-black border-charcoal/80 flex flex-col p-8 group hover:border-neon-volt/50 transition-all">
-                <div className="w-12 h-12 bg-near-black border border-charcoal rounded flex items-center justify-center mb-8 text-silver group-hover:text-neon-volt transition-colors">
-                   {item.icon}
-                </div>
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="font-bold text-xl">{item.title}</h3>
-                </div>
-                <div className="inline-flex px-2 py-0.5 border border-charcoal rounded text-[8px] font-black uppercase tracking-[2px] text-silver mb-6 self-start">
-                   {item.badge}
-                </div>
-                <p className="text-silver text-sm leading-relaxed">{item.desc}</p>
-              </Card>
-            ))}
-          </div>
-
-          {/* Ecosystem Wheel */}
-          <div className="flex flex-col items-center">
-             <div className="relative w-80 h-80 flex items-center justify-center">
-               <motion.div 
-                 animate={{ rotate: 360 }}
-                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                 className="absolute inset-0 border-2 border-dashed border-charcoal/40 rounded-full"
-               />
-               <div className="z-10 w-32 h-32 bg-neon-volt rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(250,255,105,0.2)]">
-                  <span className="text-pure-black font-black text-2xl">CORE</span>
-               </div>
-               {[0, 90, 180, 270].map((angle, i) => (
-                 <div 
-                   key={angle}
-                   className="absolute"
-                   style={{ transform: `rotate(${angle}deg) translateY(-140px) rotate(-${angle}deg)` }}
-                 >
-                   <div className="w-16 h-16 bg-near-black border border-charcoal rounded-xl flex items-center justify-center text-silver">
-                      {i === 0 ? <Activity /> : i === 1 ? <Search /> : i === 2 ? <Zap /> : <ShieldCheck />}
-                   </div>
-                 </div>
-               ))}
-               <div className="absolute inset-x-0 bottom-[-40px] text-center">
-                 <p className="text-[10px] font-black uppercase tracking-[4px] text-silver"> Ecosystem Network </p>
-               </div>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* USE CASES */}
-      <section className="container mx-auto px-6 py-32">
-        <h2 className="font-sans font-black text-5xl md:text-6xl mb-20 text-center uppercase tracking-tight">BUILT FOR DECISIONS <br /> THAT <span className="text-neon-volt">MATTER.</span></h2>
-        
-        <div className="space-y-px border-y border-charcoal">
+        <div className="max-w-5xl mx-auto space-y-4">
           {[
-            { tag: "Academia", title: "Research & academia", desc: "Validate sources and evaluate the integrity of cited information.", icon: <Globe size={24} /> },
-            { tag: "Personal", title: "Consumers", desc: "Evaluate product claims and brand transparency before purchase.", icon: <Users size={24} /> },
-            { tag: "Enterprise", title: "Professionals", desc: "Assess business information and signals with absolute confidence.", icon: <Briefcase size={24} /> },
-            { tag: "Content", title: "Media & content", desc: "Ensure credibility and verify origins before amplification.", icon: <FileText size={24} /> },
-          ].map((item, i) => (
-            <motion.div 
-              key={item.title}
-              whileHover={{ backgroundColor: "rgba(250, 255, 105, 0.03)" }}
-              className="group cursor-pointer py-10 px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 transition-colors border-b border-charcoal last:border-b-0"
-            >
-              <div className="flex gap-8 items-center flex-1">
-                <div className="text-charcoal group-hover:text-neon-volt transition-colors shrink-0">
-                   {item.icon}
-                </div>
-                <div>
-                   <span className="text-[10px] font-black uppercase tracking-[3px] text-silver mb-2 block">{item.tag}</span>
-                   <h3 className="text-2xl font-bold">{item.title}</h3>
-                </div>
-              </div>
-              <div className="flex-1">
-                <p className="text-silver lg:px-12 group-hover:text-pure-white transition-colors">{item.desc}</p>
-              </div>
-              <div className="hidden md:block">
-                <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                   VIEW CASE
-                </Button>
-              </div>
-            </motion.div>
+            { id: '01', title: 'Input Protocol', desc: 'Provide any claim, article, or content. Our system ingests the raw data for decomposition.' },
+            { id: '02', title: 'Recursive Analysis', desc: 'GenWin deconstructs and cross-references the information against millions of data points.' },
+            { id: '03', title: 'Structured Output', desc: 'A clear trust score, supported by absolute Reasoning Logs and structured data.' },
+          ].map((step) => (
+            <div key={step.id} className="bg-near-black border border-charcoal/80 p-10 flex flex-col md:flex-row items-start gap-12 group hover:border-charcoal transition-colors">
+               <span className="font-sans font-black text-6xl text-charcoal/30 group-hover:text-neon-volt/20 transition-colors uppercase leading-none">{step.id}</span>
+               <div className="flex-1">
+                  <h3 className="text-2xl font-black uppercase mb-4 tracking-tight">{step.title}</h3>
+                  <p className="text-silver text-lg leading-relaxed">{step.desc}</p>
+               </div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ACCESS & TRUST */}
-      <section className="bg-near-black/80 border-y border-charcoal py-32">
+      {/* Platform Capabilities */}
+      <section className="bg-near-black border-y border-charcoal/80 py-40 overflow-hidden relative">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-20 items-center">
-            <div className="flex-1">
-               <h2 className="font-sans font-black text-5xl md:text-6xl mb-8 leading-tight">ACCESS DESIGNED WITH <span className="text-neon-volt">INTENTION.</span></h2>
-               <div className="space-y-6 text-silver text-lg">
-                <p>To maintain quality and responsible usage, GenWin operates as an authenticated platform.</p>
-                <div className="space-y-3 pt-4">
-                   {[
-                     "Analysis history per session",
-                     "Saved insights to personal dashboard",
-                     "Continuous AI engine improvements"
-                   ].map(text => (
-                     <div key={text} className="flex gap-3 items-center">
-                        <div className="w-1 h-1 rounded-full bg-neon-volt" />
-                        <span className="text-sm font-medium">{text}</span>
-                     </div>
-                   ))}
-                </div>
+          <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-10">
+            <div className="max-w-2xl">
+              <span className="text-neon-volt text-[12px] font-black tracking-[3px] uppercase mb-6 block">Unified Architecture</span>
+              <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-none tracking-[-0.04em] uppercase">Ecosystem <br />Intelligence.</h2>
+            </div>
+            <div className="text-silver text-xl max-w-sm mb-2">
+              A unified approach to trust assessment across every critical information sector.
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-charcoal/40 border border-charcoal/40">
+             {[
+               { name: 'GenWin App', status: 'Available', desc: 'Real-time credibility evaluation engine.' },
+               { name: 'GenWin Food', status: 'Planned', desc: 'Ingredient transparency and sourcing integrity.' },
+               { name: 'GenWin Shop', status: 'Planned', desc: 'Product authenticity and review verification.' },
+               { name: 'GenWin Verify', status: 'Future', desc: 'Scalable API layer for external ecosystems.' },
+             ].map((cap) => (
+               <div key={cap.name} className="bg-pure-black p-10 group hover:bg-near-black transition-colors min-h-[300px] flex flex-col justify-between">
+                  <div className="flex justify-between items-start">
+                     <h4 className="text-xl font-black uppercase tracking-tight max-w-[100px] leading-none">{cap.name}</h4>
+                     <span className={`text-[9px] font-black uppercase tracking-[2px] px-2 py-0.5 rounded-[2px] ${cap.status === 'Available' ? 'bg-neon-volt text-pure-black shadow-[0_0_10px_rgba(250,255,105,0.3)]' : 'bg-charcoal/20 text-silver border border-charcoal/40'}`}>
+                       {cap.status}
+                     </span>
+                  </div>
+                  <p className="text-sm text-silver leading-relaxed font-medium">{cap.desc}</p>
                </div>
-               <NextLink href="/signup" className="inline-block mt-12">
-                 <Button variant="neon" size="lg" className="px-12 group">
-                   CREATE AN ACCOUNT <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                 </Button>
-               </NextLink>
-            </div>
-            <div className="w-full md:w-80 h-80 bg-pure-black border border-charcoal rounded-2xl p-8 flex items-center justify-center relative overflow-hidden group">
-               <motion.div 
-                 animate={{ 
-                   scale: [1, 1.1, 1],
-                   opacity: [0.3, 0.5, 0.3]
-                 }}
-                 transition={{ duration: 4, repeat: Infinity }}
-                 className="absolute inset-0 bg-neon-volt/5 blur-3xl"
-               />
-               <Lock size={80} className="text-charcoal group-hover:text-neon-volt transition-colors relative z-10" />
-            </div>
+             ))}
+          </div>
+
+          {/* Ecosystem Visualization Replacement */}
+          <div className="mt-20 flex justify-center opacity-30">
+             <div className="w-full h-px bg-gradient-to-r from-transparent via-charcoal to-transparent" />
           </div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="relative overflow-hidden pt-48 pb-64">
-        <div className="absolute inset-0 bg-gradient-to-b from-pure-black via-near-black to-pure-black -z-20" />
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-sans font-black text-6xl md:text-[80px] mb-8 leading-none">MAKE CLARITY <br />YOUR DEFAULT.</h2>
-            <p className="text-silver text-xl md:text-2xl max-w-2xl mx-auto mb-16 font-medium">
-              Start using GenWin to evaluate information with confidence and precision.
-            </p>
-            <NextLink href="/signup">
-              <Button variant="forest" size="lg" className="px-16 h-16 text-xl rounded-none shadow-[0_0_50px_rgba(22,101,52,0.3)]">
-                TRY GENWIN
-              </Button>
-            </NextLink>
-          </motion.div>
+      {/* Use Cases */}
+      <section className="container mx-auto px-6 py-40">
+        <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-tight uppercase tracking-tight text-center mb-24">
+          Built for <span className="text-neon-volt">Decisions</span> <br />that matter.
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-6xl mx-auto">
+          {[
+            { tag: 'ACADEMIA', title: 'Research Validaton', desc: 'Authenticate sources and verify citations with absolute certainty.', icon: <Globe /> },
+            { tag: 'PERSONAL', title: 'Consumer Intelligence', desc: 'Evaluate product claims and brand legitimacy before exposure.', icon: <FileSearch /> },
+            { tag: 'ENTERPRISE', title: 'Data Integrity', desc: 'Assess business signals and internal data points with precision.', icon: <Zap /> },
+            { tag: 'MEDIA', title: 'Information Security', desc: 'Deconstruct claims and verify origin signals before broadcasting.', icon: <Activity /> },
+          ].map((use) => (
+            <div key={use.title} className="bg-near-black border border-charcoal/40 p-12 group hover:border-charcoal transition-colors">
+               <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 bg-pure-black border border-charcoal/80 flex items-center justify-center text-charcoal group-hover:text-neon-volt transition-colors">
+                     {use.icon}
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-[3px] text-silver">{use.tag}</span>
+               </div>
+               <h3 className="text-2xl font-black uppercase mb-4 tracking-tight">{use.title}</h3>
+               <p className="text-silver leading-relaxed">{use.desc}</p>
+            </div>
+          ))}
         </div>
-        
-        {/* Abstract design elements */}
-        <div className="absolute top-1/2 left-0 w-1/4 h-px bg-gradient-to-r from-neon-volt to-transparent opacity-20" />
-        <div className="absolute top-1/2 right-0 w-1/4 h-px bg-gradient-to-l from-neon-volt to-transparent opacity-20" />
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-deep-charcoal py-20 bg-pure-black">
+      {/* Access & Trust */}
+      <section className="bg-near-black border-y border-charcoal/80 py-40">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-24">
+           <div className="flex-1">
+             <span className="text-neon-volt text-[12px] font-black tracking-[3px] uppercase mb-6 block">Access Protocol</span>
+             <h2 className="font-sans font-black text-[48px] md:text-[64px] leading-[0.95] tracking-[-0.04em] uppercase mb-10">
+               Authenticated <br />Intelligence.
+             </h2>
+             <p className="text-silver text-2xl leading-relaxed mb-12 max-w-xl">
+               To maintain quality and responsible usage, GenWin operates as an authenticated platform for verified signal analysts.
+             </p>
+             <Link href="/signup">
+               <Button variant="neon" size="lg" className="px-16">Create Account</Button>
+             </Link>
+           </div>
+           <div className="w-full max-w-sm">
+              <div className="aspect-square bg-pure-black border-2 border-charcoal/80 rounded-2xl flex items-center justify-center p-12 group">
+                 <div className="w-full h-full border border-neon-volt/20 rounded-xl flex items-center justify-center relative overflow-hidden">
+                    <motion.div 
+                      animate={{ opacity: [0.1, 0.3, 0.1] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute inset-0 bg-neon-volt blur-3xl opacity-20"
+                    />
+                    <Lock size={120} className="text-charcoal group-hover:text-neon-volt transition-colors relative z-10" />
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="container mx-auto px-6 py-64 text-center">
+        <h2 className="font-sans font-black text-[64px] md:text-[96px] leading-[0.9] tracking-[-0.05em] uppercase mb-12">
+          MAKE CLARITY <br />YOUR <span className="text-neon-volt">DEFAULT.</span>
+        </h2>
+        <Link href="/signup">
+          <Button variant="forest" size="lg" className="px-16 h-20 text-xl rounded-none shadow-[0_0_80px_rgba(22,101,52,0.2)]">
+            Try GenWin Now
+          </Button>
+        </Link>
+        <div className="mt-20 flex justify-center gap-12">
+           <div className="flex flex-col items-center">
+              <span className="text-[10px] font-black uppercase tracking-[3px] text-silver mb-2">Build Environment</span>
+              <span className="text-xs font-mono text-neon-volt">v1.0.4 PRODUCTION</span>
+           </div>
+           <div className="flex flex-col items-center">
+              <span className="text-[10px] font-black uppercase tracking-[3px] text-silver mb-2">Uptime Status</span>
+              <span className="text-xs font-mono text-neon-volt">99.99% ONLINE</span>
+           </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-charcoal/80 py-24 bg-pure-black">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-16">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded">
+          <div className="flex flex-col lg:flex-row justify-between gap-24">
+            <div className="space-y-8">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded-[2px] shadow-[0_0_15px_rgba(250,255,105,0.15)]">
                   <span className="text-pure-black font-black text-xl">G</span>
                 </div>
-                <span className="text-xl font-bold tracking-tight">GenWin</span>
+                <span className="text-xl font-black tracking-[-0.04em] uppercase">GenWin</span>
               </div>
-              <p className="text-silver text-sm max-w-xs leading-relaxed font-bold tracking-tight mb-2">GenWin — A system for trust.</p>
-              <p className="text-[10px] uppercase font-black text-charcoal tracking-[3px]">© 2026 Engine Integrity Network</p>
+              <p className="text-silver text-sm max-w-xs font-bold leading-relaxed italic italic">
+                A system for trust designed for decisions that matter.
+              </p>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-20 gap-y-10">
-              <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-black uppercase text-silver tracking-[3px]">Product</p>
-                <div className="flex flex-col gap-2">
-                  <NextLink href="/login" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">App</NextLink>
-                  <NextLink href="/#capabilities" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">Ecosystem</NextLink>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-32 gap-y-12">
+              <div className="space-y-6">
+                <span className="text-[10px] font-black uppercase tracking-[3px] text-silver">Protocol</span>
+                <div className="flex flex-col gap-3">
+                  <Link href="/login" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Session Terminal</Link>
+                  <Link href="/signup" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Identity Creation</Link>
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-black uppercase text-silver tracking-[3px]">Platform</p>
-                <div className="flex flex-col gap-2">
-                  <NextLink href="#" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">Privacy</NextLink>
-                  <NextLink href="#" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">Terms</NextLink>
+              <div className="space-y-6">
+                <span className="text-[10px] font-black uppercase tracking-[3px] text-silver">Infrastructure</span>
+                <div className="flex flex-col gap-3">
+                  <Link href="#" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Integrity Engine</Link>
+                  <Link href="#" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Trust Layer API</Link>
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-black uppercase text-silver tracking-[3px]">Contact</p>
-                <div className="flex flex-col gap-2">
-                  <NextLink href="#" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">Support</NextLink>
-                  <NextLink href="#" className="text-sm font-medium text-charcoal hover:text-neon-volt transition-colors underline-offset-4 hover:underline">Corporate</NextLink>
+              <div className="space-y-6">
+                <span className="text-[10px] font-black uppercase tracking-[3px] text-silver">Privacy</span>
+                <div className="flex flex-col gap-3">
+                  <Link href="#" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Security Audit</Link>
+                  <Link href="#" className="text-sm font-bold text-charcoal hover:text-neon-volt transition-colors">Terms of Usage</Link>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="mt-24 pt-12 border-t border-charcoal/20 flex flex-col md:flex-row justify-between items-center gap-6">
+             <span className="text-[10px] font-black uppercase tracking-[3px] text-charcoal">Design by Samaroh Integrity Network</span>
+             <div className="flex gap-8">
+                <Link href="#" className="text-charcoal hover:text-neon-volt transition-colors"><Globe size={18}/></Link>
+                <Link href="#" className="text-charcoal hover:text-neon-volt transition-colors"><Database size={18}/></Link>
+                <Link href="#" className="text-charcoal hover:text-neon-volt transition-colors"><Zap size={18}/></Link>
+             </div>
           </div>
         </div>
       </footer>

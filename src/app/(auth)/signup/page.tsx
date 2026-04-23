@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleA
 import { auth } from '@/lib/firebase/config';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
+import { Terminal, Shield, Zap } from 'lucide-react';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -22,11 +23,9 @@ export default function SignupPage() {
     setError('');
     
     try {
-      // 1. Execute reCAPTCHA
       const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
       const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
 
-      // 2. Verify reCAPTCHA on server
       const verifyRes = await fetch('/api/recaptcha/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,10 +37,8 @@ export default function SignupPage() {
         throw new Error(verifyData.error || 'Verification failed');
       }
 
-      // 3. Proceed with Firebase signup
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(user, { displayName: name });
-      // The auto-login will trigger the token and backend sync in AuthContext
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
@@ -55,11 +52,9 @@ export default function SignupPage() {
     setError('');
     const provider = new GoogleAuthProvider();
     try {
-      // reCAPTCHA execution
       const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
       const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
 
-      // Verification
       const verifyRes = await fetch('/api/recaptcha/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,87 +76,98 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-screen bg-pure-black text-pure-white flex items-center justify-center p-6 selection:bg-neon-volt selection:text-pure-black">
-      <Card className="w-full max-w-md bg-near-black" elevated>
-        <CardContent className="p-8">
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center gap-2 mb-6 hover:text-neon-volt transition-colors">
-              <div className="w-8 h-8 bg-neon-volt flex items-center justify-center rounded">
-                <span className="text-pure-black font-black text-xl">G</span>
+    <main className="min-h-screen bg-pure-black text-pure-white flex items-center justify-center p-6 selection:bg-neon-volt selection:text-pure-black font-sans relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-neon-volt/5 blur-[120px] -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-forest-green/5 blur-[120px] -z-10" />
+      
+      <Card className="w-full max-w-md bg-near-black border-charcoal/80" elevated>
+        <CardContent className="p-10">
+          <div className="flex flex-col items-center mb-10 text-center">
+            <Link href="/" className="mb-8 group">
+              <div className="w-12 h-12 bg-neon-volt flex items-center justify-center rounded-[2px] shadow-[0_0_20px_rgba(250,255,105,0.2)] group-hover:rotate-90 transition-transform duration-500">
+                <span className="text-pure-black font-black text-2xl">G</span>
               </div>
-              <span className="text-xl font-bold tracking-tight">GenWin</span>
             </Link>
-            <h1 className="font-heading font-semibold text-3xl mb-2">Create Account</h1>
-            <p className="text-silver text-sm text-balance">Join the integrity engine network.</p>
+            <h1 className="font-sans font-black text-[32px] uppercase tracking-[-0.02em] leading-none mb-3">
+              IDENTITY CREATION
+            </h1>
+            <p className="text-silver text-[11.2px] font-black tracking-[2px] uppercase opacity-70">
+              Network Access Protocol v1.0
+            </p>
           </div>
 
           {error && (
-            <div className="mb-6 p-3 rounded bg-red-900/30 border border-red-500/50 text-red-200 text-sm">
+            <div className="mb-8 p-4 rounded-[2px] bg-red-900/20 border border-red-500/30 text-red-400 text-[11.2px] font-bold uppercase tracking-wider flex items-center gap-3">
+              <Shield size={14} />
               {error}
             </div>
           )}
 
-          <form onSubmit={handleEmailSignup} className="space-y-4">
-            <div className="space-y-1">
-              <label className="text-sm font-semibold tracking-[1.4px] uppercase text-silver">Full Name</label>
+          <form onSubmit={handleEmailSignup} className="space-y-5">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black tracking-[2px] uppercase text-silver">Operator Name</label>
               <input 
                 type="text" 
                 value={name}
                 onChange={e => setName(e.target.value)}
                 required
-                className="w-full bg-pure-black border border-charcoal/80 rounded px-4 py-3 text-pure-white focus:outline-none focus:border-neon-volt focus:ring-1 focus:ring-neon-volt transition-colors"
-                placeholder="Operator Name"
+                className="w-full bg-pure-black border border-charcoal/80 rounded-[2px] px-4 py-4 text-sm text-pure-white focus:outline-none focus:border-neon-volt focus:ring-0 transition-colors placeholder:text-near-black"
+                placeholder="Full Name / Identification"
               />
             </div>
 
-            <div className="space-y-1">
-              <label className="text-sm font-semibold tracking-[1.4px] uppercase text-silver">Email</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black tracking-[2px] uppercase text-silver">Identifier (Email)</label>
               <input 
                 type="email" 
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full bg-pure-black border border-charcoal/80 rounded px-4 py-3 text-pure-white focus:outline-none focus:border-neon-volt focus:ring-1 focus:ring-neon-volt transition-colors"
-                placeholder="operator@genwin.ai"
+                className="w-full bg-pure-black border border-charcoal/80 rounded-[2px] px-4 py-4 text-sm text-pure-white focus:outline-none focus:border-neon-volt focus:ring-0 transition-colors placeholder:text-near-black"
+                placeholder="operator@genwin.network"
               />
             </div>
             
-            <div className="space-y-1">
-              <label className="text-sm font-semibold tracking-[1.4px] uppercase text-silver">Password</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black tracking-[2px] uppercase text-silver">Access Key (Password)</label>
               <input 
                 type="password" 
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
-                className="w-full bg-pure-black border border-charcoal/80 rounded px-4 py-3 text-pure-white focus:outline-none focus:border-neon-volt focus:ring-1 focus:ring-neon-volt transition-colors"
+                className="w-full bg-pure-black border border-charcoal/80 rounded-[2px] px-4 py-4 text-sm text-pure-white focus:outline-none focus:border-neon-volt focus:ring-0 transition-colors placeholder:text-near-black"
                 placeholder="••••••••"
                 minLength={6}
               />
             </div>
 
-            <Button variant="forest" fullWidth type="submit" disabled={isLoading} className="mt-2">
-              {isLoading ? 'INITIALIZING...' : 'CREATE ACCOUNT'}
+            <Button variant="forest" fullWidth type="submit" disabled={isLoading} className="h-14 mt-4">
+              {isLoading ? 'PROTOCOL INITIATING...' : 'ESTABLISH IDENTITY'}
             </Button>
           </form>
 
-          <div className="my-6 flex items-center text-silver text-xs font-semibold tracking-[1.4px] uppercase">
-            <div className="flex-1 border-t border-charcoal/80"></div>
-            <span className="px-4">Or</span>
-            <div className="flex-1 border-t border-charcoal/80"></div>
+          <div className="my-10 flex items-center gap-4">
+            <div className="flex-1 h-px bg-charcoal/40"></div>
+            <span className="text-[10px] font-black uppercase tracking-[3px] text-charcoal">OR</span>
+            <div className="flex-1 h-px bg-charcoal/40"></div>
           </div>
 
-          <Button variant="ghost" fullWidth onClick={handleGoogleSignup} disabled={isLoading} className="border-charcoal hover:border-border-olive">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 mr-3" fill="currentColor">
-              <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
-            </svg>
-            CONTINUE WITH GOOGLE
+          <Button variant="ghost" fullWidth onClick={handleGoogleSignup} disabled={isLoading} className="h-14 border-charcoal/80 hover:border-border-olive group">
+            <Zap size={14} className="mr-3 text-silver group-hover:text-neon-volt transition-colors" />
+            Quick Identity (Google)
           </Button>
           
-          <div className="mt-8 text-center text-sm text-silver">
-            Already have an account? <Link href="/login" className="text-pure-white font-medium hover:text-neon-volt transition-colors">Sign in</Link>
+          <div className="mt-10 text-center font-bold">
+            <span className="text-[11.2px] uppercase tracking-[1.4px] text-silver">Active Session? </span>
+            <Link href="/login" className="text-[11.2px] uppercase tracking-[1.4px] text-neon-volt hover:underline underline-offset-4">Resume Login</Link>
           </div>
         </CardContent>
       </Card>
+      
+      <div className="absolute bottom-10 flex items-center gap-4 opacity-30">
+         <Terminal size={14} className="text-silver" />
+         <span className="text-[10px] font-black uppercase tracking-[4px] text-silver">Node Status: INITIALIZING</span>
+      </div>
     </main>
   );
 }
