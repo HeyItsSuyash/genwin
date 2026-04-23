@@ -39,6 +39,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${inconsolata.variable} ${basierFallback.variable} h-full antialiased`}
     >
+      <head>
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE" async defer></script>
+      </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           {children}

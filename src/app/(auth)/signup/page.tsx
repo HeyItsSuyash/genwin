@@ -22,6 +22,23 @@ export default function SignupPage() {
     setError('');
     
     try {
+      // 1. Execute reCAPTCHA
+      const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
+      const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
+
+      // 2. Verify reCAPTCHA on server
+      const verifyRes = await fetch('/api/recaptcha/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, action: 'SIGNUP' }),
+      });
+      
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        throw new Error(verifyData.error || 'Verification failed');
+      }
+
+      // 3. Proceed with Firebase signup
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(user, { displayName: name });
       // The auto-login will trigger the token and backend sync in AuthContext
@@ -38,6 +55,22 @@ export default function SignupPage() {
     setError('');
     const provider = new GoogleAuthProvider();
     try {
+      // reCAPTCHA execution
+      const siteKey = '6LdtrMYsAAAAAGGTaihkE9LTYphc3gbLmsIcPlHE';
+      const token = await window.grecaptcha.enterprise.execute(siteKey, { action: 'SIGNUP' });
+
+      // Verification
+      const verifyRes = await fetch('/api/recaptcha/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, action: 'SIGNUP' }),
+      });
+      
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        throw new Error(verifyData.error || 'Verification failed');
+      }
+
       await signInWithPopup(auth, provider);
       router.push('/dashboard');
     } catch (err: any) {
