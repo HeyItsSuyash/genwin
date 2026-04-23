@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GenWin: Information Trust Evaluation Platform
 
-## Getting Started
+**GenWin** is a high-performance analytical engine designed to evaluate the trustworthiness of information, claims, and datasets in real-time. Built with a focus on speed, precision, and architectural integrity, GenWin leverages advanced LLMs to provide structured insights into the credibility of digital content.
 
-First, run the development server:
+## What it Does
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+GenWin acts as an "integrity engine" for information. It doesn't just check facts; it evaluates the logical consistency, source credibility, and contextual completeness of any given input.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Trust Scoring**: Generates a rigorous 0-100 metric based on verifiable evidence.
+- **Verdict Extraction**: Provides a clear verdict (Likely True, Uncertain, Likely False) for any claim.
+- **Evidence Mapping**: Lists supporting data points and identifies known contradictions.
+- **Contextual Awareness**: Detects missing context that might alter the interpretation of a claim.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Current State
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The platform is currently in its core development phase, featuring:
+- **The Trust Engine**: Powered by Groq (Llama-3-70b) for sub-second latency in complex reasoning.
+- **Secure Authentication**: Firebase-driven login with automatic MongoDB user-profile synchronization.
+- **Operational History**: A persistent log of all analyses, allowing users to track information integrity over time.
 
-## Learn More
+## Design Philosophy
 
-To learn more about Next.js, take a look at the following resources:
+GenWin is designed as a **"High-Performance Cockpit"**. Inspired by the aesthetic of ultra-fast database systems like ClickHouse, the interface is engineered for maximum focus and visual weight:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Obsidian Black Canvas**: A pure black (`#000000`) background to reduce visual noise.
+- **Neon Volt Accents**: Acid yellow-green (`#faff69`) highlights for critical calls to action and metrics.
+- **Aggressive Typography**: Utilizing Inter Black (900) for hero headlines to communicate power and speed.
+- **Terminal Aesthetic**: A workspace designed to feel like a command center for truth assessment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Purpose
 
-## Deploy on Vercel
+The project was designed for the purpose of **Basic Selection** and integrity evaluation—serving as a prototype for a larger intelligence platform that handles complex data streams with the same speed as a world-class database.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Build with Next.js 16, Firebase, MongoDB, and Groq.*
