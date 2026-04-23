@@ -212,7 +212,7 @@ export default function LandingPage() {
                    <span className="text-[10px] font-black uppercase tracking-[2px] text-silver">System Failure Analysis</span>
                 </div>
              </Card>
-          </div>
+          </motion.div>
         </div>
       </section>
 
